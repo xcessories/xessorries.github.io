@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Xessorries — Charge Up</title>
+<meta name="description" content="Xessorries: premium mobile accessories in Pakistan. Fast chargers, braided cables, power banks, car chargers and earphones from Apple, Samsung, Romoss, Toocki and Omniklad.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: confident, fast, a little loud; Gen Z tech drop, never cheap.
+   IDEA: the page is a charge cycle: scrolling powers the store from 0 to 100%.
+   PICTURE: a glowing phone + orbiting gear that blows the wordmark apart, a cable that draws itself, a 3D ring of categories.
+   COLOUR and TYPE: night #0A0A0A, paper #F5F5F2, signal orange #FF7900; Space Grotesk 700 + Inter.
+   LAYOUT: pinned scroll scenes on desktop (hero, charge, drops track, ring, finale); plain stacked flow on phones and for reduced motion. */
+:root{color-scheme:dark;--bg:#0A0A0A;--ink:#F5F5F2;--dim:#9b9b96;--line:#232323;--or:#FF7900;--tile:#ECE9E4;--ease:cubic-bezier(.16,1,.3,1)}
+:root[data-theme=light],:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:clip}
+a{color:inherit}
+h1,h2,h3,.disp{font-family:"Space Grotesk",system-ui,sans-serif;font-weight:700;letter-spacing:-.02em;line-height:1.05;margin:0;text-wrap:balance}
+h2{font-size:clamp(32px,5vw,52px)}
+.wrap{max-width:1240px;margin:0 auto;padding:0 max(5vw,16px)}
+.band{padding:clamp(56px,8vw,120px) 0}
+.bar{position:fixed;top:0;left:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(var(--page,0));background:var(--or);z-index:60;box-shadow:0 0 14px var(--or)}
+nav{position:fixed;inset:0 0 auto;z-index:50;display:flex;align-items:center;gap:28px;padding:18px max(5vw,16px);background:linear-gradient(#0a0a0ae6,#0a0a0a00)}
+.logo{font:700 20px "Space Grotesk",sans-serif;letter-spacing:.04em;text-decoration:none}
+.logo b{color:var(--or)}
+nav .links{display:flex;gap:22px;margin-left:auto;flex-wrap:wrap}
+nav .links a{text-decoration:none;font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;background:linear-gradient(var(--or),var(--or)) 0 100%/0 2px no-repeat;padding-bottom:4px;transition:background-size .3s var(--ease)}
+nav .links a:hover,nav .links a:focus-visible{background-size:100% 2px}
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 26px;border-radius:999px;background:var(--or);color:#0A0A0A;font-weight:700;text-decoration:none;text-transform:uppercase;letter-spacing:.05em;font-size:14px;transition:transform .15s var(--ease),box-shadow .3s var(--ease)}
+.btn:hover{box-shadow:0 12px 40px -10px #ff7900cc}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+:focus-visible{outline:2px solid var(--or);outline-offset:3px}
+
+/* scenes */
+.scene{position:relative;--p:0}
+.stick{position:sticky;top:0;height:100vh;overflow:hidden}
+/* hero */
+.hero{height:260vh}
+.hero .stick{display:grid;place-items:center;perspective:900px;background:radial-gradient(900px 600px at calc(50% + var(--mx,0)*60px) calc(45% + var(--my,0)*40px),#ff79002e,transparent 70%)}
+.grain{position:absolute;inset:0;background:repeating-linear-gradient(45deg,#ffffff06 0 1px,transparent 1px 46px);pointer-events:none}
+.word{position:absolute;display:flex;font-size:clamp(56px,13vw,210px);transform-style:preserve-3d;white-space:nowrap}
+.word span{display:inline-block;transform:translate3d(calc((var(--i) - 4.5)*var(--p)*150px),calc(var(--p)*var(--dy)*1px),calc(var(--p)*520px)) rotateY(calc((var(--i) - 4.5)*var(--p)*14deg));opacity:calc(1 - var(--p)*1.4);text-shadow:0 0 50px #ff790055}
+.core{position:relative;width:min(46vh,380px);aspect-ratio:1;transform:scale(calc(.55 + var(--p)*.6)) rotate(calc(var(--p)*-20deg));opacity:calc(.25 + var(--p)*1.2)}
+.core svg{width:100%;height:100%;overflow:visible}
+.orbit{transform-origin:200px 200px;animation:spin 22s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-copy{position:absolute;bottom:9vh;left:0;right:0;text-align:center;padding:0 16px;opacity:clamp(0,calc(var(--p)*2.4 - .9),1);transform:translateY(calc((1 - var(--p))*40px))}
+.hero-copy p{color:var(--dim);margin:12px auto 22px;max-width:46ch}
+.hint{position:absolute;bottom:4vh;font-size:13px;color:var(--dim);opacity:calc(1 - var(--p)*4);letter-spacing:.08em;text-transform:uppercase}
+/* ticker */
+.ticker{background:var(--or);color:#0A0A0A;overflow:hidden;padding:18px 0;transform:skewY(calc(var(--skew,0)*1deg))}
+.ticker .row{display:flex;gap:40px;width:max-content;animation:tick 26s linear infinite}
+.ticker span{font:700 clamp(22px,3vw,34px) "Space Grotesk",sans-serif;text-transform:uppercase;white-space:nowrap}
+.ticker span:nth-child(even){opacity:.45}
+@keyframes tick{to{transform:translateX(-50%)}}
+/* spotlight scene */
+.spot{height:240vh}
+.spot .stick{display:flex;flex-direction:column;justify-content:center}
+.spot .lbl{position:absolute;top:13vh;left:max(5vw,16px);font:600 14px Inter,sans-serif;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);z-index:2}
+.dots{position:absolute;right:max(5vw,16px);top:50%;transform:translateY(-50%);display:grid;gap:10px;z-index:2}
+.dots i{width:8px;height:28px;border-radius:9px;background:#2a2a2a;transition:background .3s,height .3s var(--ease)}
+.dots i.on{background:var(--or);height:44px}
+.sl{position:absolute;inset:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:5vw;padding:0 max(8vw,16px);opacity:0;transform:translateY(50px) scale(.96);filter:blur(8px);transition:opacity .45s var(--ease),transform .6s var(--ease),filter .45s var(--ease);pointer-events:none}
+.sl.on{opacity:1;transform:none;filter:none;pointer-events:auto}
+.sl .num{position:absolute;right:4vw;top:50%;transform:translate(calc((var(--p) - .5)*-12vw),-50%);font:700 clamp(120px,24vw,380px)/.8 "Space Grotesk",sans-serif;letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1.5px #2c2c2c;white-space:nowrap;z-index:-1}
+.sl .ph{aspect-ratio:1;max-height:62vh;justify-self:center;width:100%;max-width:520px;box-shadow:0 40px 120px -40px #ff790066}
+.sl .ph svg{position:absolute;inset:14%;width:72%;height:72%}
+.sl .info{max-width:30rem}
+.sl .br{font-size:13px;color:var(--or);text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+.sl h3{font-size:clamp(30px,3.6vw,48px);margin:10px 0 14px}
+.sl p{color:var(--dim);margin:0 0 22px}
+.sl .pr{font:700 26px "Space Grotesk",sans-serif;margin-right:18px;white-space:nowrap}
+.ph{position:relative;border-radius:22px;overflow:hidden;background:var(--tile)}
+.ph.fb{background:radial-gradient(circle at 50% 40%,#2a1a0e,#121212 70%)}
+.ph img{width:100%;height:100%;object-fit:contain;padding:8%;mix-blend-mode:multiply}
+/* drops: horizontal track */
+.drops .stick{display:flex;flex-direction:column;justify-content:center;gap:34px}
+.drops .head{display:flex;align-items:end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.track{display:flex;gap:22px;padding:0 max(5vw,16px);width:max-content;transform:translate3d(calc(var(--p)*var(--shift)*-1px),0,0)}
+.card{width:clamp(240px,22vw,300px);flex:none;text-decoration:none;perspective:800px}
+.card .ph{position:relative;aspect-ratio:1;border-radius:18px;overflow:hidden;background:var(--tile);transform:rotateY(calc(var(--tilt,0)*1deg));transition:transform .5s var(--ease),box-shadow .35s var(--ease)}
+.card .ph.fb{background:radial-gradient(circle at 50% 40%,#2a1a0e,#121212 70%)}
+.card img{width:100%;height:100%;object-fit:contain;padding:8%;mix-blend-mode:multiply;transition:transform .6s var(--ease)}
+.card .ph svg{position:absolute;inset:12%;width:76%;height:76%}
+.card h3{font:600 15px/1.35 Inter,sans-serif;letter-spacing:0;margin:14px 0 4px}
+.card .pr{color:var(--or);font-weight:700;white-space:nowrap}
+.card .br{font-size:12px;color:var(--dim);text-transform:uppercase;letter-spacing:.08em}
+.card:hover .ph{box-shadow:0 0 0 1.5px var(--or),0 26px 60px -24px #ff7900aa;transform:translateY(-6px)}
+.card:hover img{transform:scale(1.07)}
+.card:hover h3{color:var(--or)}
+/* brands */
+.brands h2{margin-bottom:28px}
+.brow{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:20px;border-top:1px solid var(--line);padding:6px 0;text-decoration:none;transform:translateX(calc((1 - var(--f,1))*var(--dir)*12vw))}
+.brow:last-child{border-bottom:1px solid var(--line)}
+.bname{font:700 clamp(48px,10vw,150px)/1 "Space Grotesk",sans-serif;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1.5px #5a5a5a;background:linear-gradient(90deg,var(--ink) 0 50%,transparent 50%) 0 0/200% 100% no-repeat;background-position:calc((1 - var(--f,1))*100%) 0;-webkit-background-clip:text;background-clip:text;transition:color .3s}
+.brow .go{display:flex;align-items:center;gap:14px;color:var(--dim);font-size:14px;text-align:right;max-width:30ch}
+.brow .go i{flex:none;display:grid;place-items:center;width:56px;height:56px;border-radius:50%;border:1.5px solid #3a3a3a;font-style:normal;font-size:22px;transition:background .3s,color .3s,border-color .3s,transform .3s var(--ease)}
+.brow:hover .bname{color:var(--or);-webkit-text-stroke-color:var(--or)}
+.brow:hover .go i{background:var(--or);color:#0A0A0A;border-color:var(--or);transform:rotate(-45deg)}
+/* category ring */
+.ring{height:300vh}
+.ring .stick{display:grid;place-items:center;perspective:1400px}
+.ring h2{position:absolute;top:12vh;left:0;right:0;text-align:center}
+.carousel{position:relative;width:260px;height:320px;transform-style:preserve-3d;transform:rotateX(-8deg) rotateY(calc(var(--p)*-288deg))}
+.cat{position:absolute;inset:0;border-radius:22px;padding:22px;display:flex;flex-direction:column;justify-content:space-between;text-decoration:none;background:linear-gradient(160deg,#1d1d1d,#0f0f0f);border:1px solid #2c2c2c;transform:rotateY(calc(var(--i)*72deg)) translateZ(380px);box-shadow:0 30px 80px -30px #000}
+.cat svg{width:100%;height:58%}
+.cat b{font:700 26px "Space Grotesk",sans-serif}
+.cat span{color:var(--or);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.cat:hover{border-color:var(--or)}
+.ring .note{position:absolute;bottom:9vh;color:var(--dim);font-size:14px}
+/* finale */
+.fin{height:220vh}
+.fin .stick{display:grid;place-items:center}
+.fin .stick::before{content:"";position:absolute;left:50%;top:50%;width:150vmax;height:150vmax;margin:-75vmax 0 0 -75vmax;border-radius:50%;background:var(--or);transform:scale(var(--p));pointer-events:none}
+.fin .stick>div{position:relative}
+.fin .big{font-size:clamp(56px,11vw,170px);transform:scale(calc(.65 + var(--p)*.35));color:color-mix(in srgb,#0A0A0A calc(var(--p)*100%),var(--ink));text-align:center}
+.fin .act{margin-top:40px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;opacity:clamp(0,calc(var(--p)*3 - 1.6),1)}
+.fin .btn{background:#0A0A0A;color:var(--ink)}
+footer{border-top:1px solid var(--line);padding:40px 0;color:var(--dim);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:18px 40px;justify-content:space-between}
+footer a{text-decoration:none}footer a:hover{color:var(--or)}
+.demo{font-size:13px}
+
+/* phones, tablets, reduced motion: no pinning, plain flow */
+.lite .hero,.lite .spot,.lite .ring,.lite .fin{height:auto}
+.lite .stick{position:relative;height:auto;min-height:0;overflow:visible}
+.lite .hero .stick{min-height:92vh;padding:110px 16px 60px}
+.lite .word{position:relative}
+.lite .word span{transform:none;opacity:1}
+.lite .core{display:none}
+.lite .hero-copy{position:relative;bottom:auto;opacity:1;transform:none;margin-top:18px}
+.lite .hint{display:none}
+.lite .drops .stick{padding:20px 0}
+.lite .spot .stick{padding:80px 0}
+.lite #slides{display:grid;gap:64px}
+.lite .spot .lbl,.lite .dots{display:none}
+.lite .sl{position:relative;opacity:1;transform:none;filter:none;pointer-events:auto;grid-template-columns:1fr;gap:20px;padding:0 max(5vw,16px)}
+.lite .sl .num{display:none}
+.lite .sl .ph{max-width:420px}
+.lite .track{transform:none;width:auto;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px}
+.lite .card{scroll-snap-align:start}
+.lite .brow{transform:none}
+.lite .bname{background-position:0 0}
+.lite .ring .stick{padding:90px max(5vw,16px);perspective:none}
+.lite .ring h2{position:relative;top:0;margin-bottom:28px}
+.lite .carousel{width:100%;height:auto;transform:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.lite .cat{position:relative;transform:none;aspect-ratio:4/5}
+.lite .ring .note{display:none}
+.lite .fin .stick{padding:110px 16px;background:var(--or)}
+.lite .fin .big{transform:none;color:#0A0A0A}
+.lite .fin .act{opacity:1}
+@media(max-width:600px){nav .links{display:none}.brow{grid-template-columns:minmax(0,1fr) auto}.brow .go{font-size:0;gap:0}.brow .go i{font-size:20px;width:46px;height:46px}.bname{font-size:clamp(40px,12vw,64px)}}
+
+</style>
+</head>
+<body>
+<div class="bar" aria-hidden="true"></div>
+<nav>
+  <a class="logo" href="#top"><b>X</b>ESSORRIES</a>
+  <div class="links"><a href="#drops">Drops</a><a href="#brands">Brands</a><a href="#cats">Categories</a><a href="https://xcessorries.myshopify.com/collections/all">Shop all</a></div>
+</nav>
+
+<main id="top">
+<section class="scene hero" data-scene>
+  <div class="stick">
+    <div class="grain"></div>
+    <h1 class="word" aria-label="Xessorries"></h1>
+    <div class="core" aria-hidden="true">
+      <svg viewBox="0 0 400 400">
+        <defs><filter id="gl"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+        <circle cx="200" cy="200" r="182" fill="none" stroke="#FF7900" stroke-opacity=".25" stroke-dasharray="2 10"/>
+        <g class="orbit" filter="url(#gl)">
+          <g transform="translate(200 18)"><circle r="20" fill="#141414" stroke="#FF7900" stroke-width="2"/><path d="M3-9-6 2h6l-3 9 9-11h-6z" fill="#FF7900"/></g>
+          <g transform="translate(382 200)"><circle r="20" fill="#141414" stroke="#FF7900" stroke-width="2"/><path d="M-9 4c4-12 14-12 18 0" fill="none" stroke="#FF7900" stroke-width="2.5"/><rect x="-11" y="2" width="6" height="9" rx="2" fill="#FF7900"/><rect x="5" y="2" width="6" height="9" rx="2" fill="#FF7900"/></g>
+          <g transform="translate(200 382)"><circle r="20" fill="#141414" stroke="#FF7900" stroke-width="2"/><rect x="-6" y="-10" width="12" height="20" rx="3" fill="none" stroke="#FF7900" stroke-width="2.5"/></g>
+          <g transform="translate(18 200)"><circle r="20" fill="#141414" stroke="#FF7900" stroke-width="2"/><path d="M-10 6c6-14 14 6 20-8" fill="none" stroke="#FF7900" stroke-width="2.5"/></g>
+        </g>
+        <g filter="url(#gl)">
+          <rect x="140" y="80" width="120" height="240" rx="26" fill="#121212" stroke="#FF7900" stroke-width="4"/>
+          <rect x="152" y="92" width="96" height="216" rx="18" fill="url(#scr)"/>
+          <rect x="182" y="100" width="36" height="9" rx="4.5" fill="#050505"/>
+          <circle cx="200" cy="200" r="30" fill="none" stroke="#FF7900" stroke-width="5" stroke-dasharray="150 40"/>
+        </g>
+        <linearGradient id="scr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d0d0d"/><stop offset=".7" stop-color="#2a1608"/><stop offset="1" stop-color="#0d0d0d"/></linearGradient>
+      </svg>
+    </div>
+    <div class="hero-copy">
+      <h2>Power that looks as good as your phone.</h2>
+      <p>Fast chargers, braided cables, power banks and earphones from Apple, Samsung, Romoss, Toocki and Omniklad.</p>
+      <a class="btn" href="https://xcessorries.myshopify.com/collections/all">Shop the drop →</a>
+    </div>
+    <div class="hint">Scroll to charge</div>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true"><div class="row" id="tick"></div></div>
+
+<section class="scene spot" data-scene aria-label="In the spotlight">
+  <div class="stick">
+    <div class="lbl">In the spotlight</div>
+    <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div id="slides"></div>
+  </div>
+</section>
+
+<section class="scene drops" id="drops" data-scene data-track>
+  <div class="stick">
+    <div class="wrap head"><h2>Fresh drops</h2><a class="btn ghost" href="https://xcessorries.myshopify.com/collections/all">View all</a></div>
+    <div class="track" id="track"></div>
+  </div>
+</section>
+
+<section class="band brands" id="brands">
+  <div class="wrap">
+    <h2>Shop by brand</h2>
+    <div id="brandlist"></div>
+  </div>
+</section>
+
+<section class="scene ring" id="cats" data-scene>
+  <div class="stick">
+    <h2>What do you need?</h2>
+    <div class="carousel" id="carousel"></div>
+    <p class="note">Keep scrolling to spin · tap a card to shop</p>
+  </div>
+</section>
+
+<section class="scene fin" data-scene>
+  <div class="stick">
+    <div>
+      <div class="big disp">Fully<br>charged.</div>
+      <div class="act"><a class="btn" href="https://xcessorries.myshopify.com/collections/all">Shop all products</a><a class="btn" href="https://xcessorries.myshopify.com/collections/cables">Shop cables</a></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><a class="logo" href="#top"><b>X</b>ESSORRIES</a><p>Premium mobile accessories, Pakistan.</p></div>
+    <div>Shop<br><a href="https://xcessorries.myshopify.com/collections/all">All products</a><br><a href="https://xcessorries.myshopify.com/collections/wall-chargers">Wall chargers</a><br><a href="https://xcessorries.myshopify.com/collections/power-banks">Power banks</a></div>
+    <div>Help<br><a href="https://xcessorries.myshopify.com/policies/refund-policy">Refund policy</a><br><a href="https://xcessorries.myshopify.com/policies/privacy-policy">Privacy policy</a></div>
+    <p class="demo">Demo build. Product photos load from the live store when this page is hosted on its own site.</p>
+  </div>
+</footer>
+
+<script>
+{
+const STORE='https://xcessorries.myshopify.com';
+const CDN='https://cdn.shopify.com/s/files/1/0838/7077/7582/files/';
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const IC={
+ cable:'<path d="M20 120 C 60 120, 50 40, 100 50 S 150 140, 180 90" fill="none" stroke="#FF7900" stroke-width="6" stroke-linecap="round"/><rect x="172" y="70" width="22" height="38" rx="6" fill="#161616" stroke="#FF7900" stroke-width="4"/><rect x="6" y="110" width="22" height="30" rx="6" fill="#161616" stroke="#FF7900" stroke-width="4"/>',
+ wall:'<rect x="60" y="50" width="80" height="100" rx="18" fill="#161616" stroke="#FF7900" stroke-width="5"/><rect x="80" y="20" width="8" height="32" rx="3" fill="#9a9a9a"/><rect x="112" y="20" width="8" height="32" rx="3" fill="#9a9a9a"/><rect x="84" y="110" width="32" height="10" rx="5" fill="none" stroke="#FF7900" stroke-width="4"/><path d="M104 66 90 88h10l-4 14 14-20h-10z" fill="#FF7900"/>',
+ car:'<rect x="62" y="24" width="76" height="56" rx="18" fill="#161616" stroke="#FF7900" stroke-width="5"/><path d="M70 78h60l-12 66H82z" fill="#161616" stroke="#FF7900" stroke-width="5" stroke-linejoin="round"/><rect x="88" y="144" width="24" height="26" rx="6" fill="#9a9a9a"/><rect x="80" y="42" width="12" height="22" rx="4" fill="#FF7900"/><rect x="108" y="42" width="12" height="22" rx="4" fill="#FF7900"/>',
+ bank:'<rect x="58" y="22" width="84" height="156" rx="20" fill="#161616" stroke="#FF7900" stroke-width="5"/><path d="M106 60 84 102h16l-6 30 26-44h-16z" fill="#FF7900"/><circle cx="84" cy="156" r="5" fill="#FF7900"/><circle cx="100" cy="156" r="5" fill="#FF7900"/><circle cx="116" cy="156" r="5" fill="#5a3410"/>',
+ ear:'<path d="M60 70c0-24 18-38 40-38s40 14 40 38" fill="none" stroke="#FF7900" stroke-width="5"/><circle cx="60" cy="86" r="18" fill="#161616" stroke="#FF7900" stroke-width="5"/><circle cx="140" cy="86" r="18" fill="#161616" stroke="#FF7900" stroke-width="5"/><path d="M60 104c0 40 40 30 40 70M140 104c0 40-40 30-40 70" fill="none" stroke="#FF7900" stroke-width="4"/>',
+ socket:'<rect x="40" y="50" width="120" height="100" rx="20" fill="#161616" stroke="#FF7900" stroke-width="5"/><circle cx="78" cy="100" r="14" fill="none" stroke="#FF7900" stroke-width="4"/><circle cx="122" cy="100" r="14" fill="none" stroke="#FF7900" stroke-width="4"/><path d="M100 150v30" stroke="#FF7900" stroke-width="5"/>'
+};
+const icon=t=>`<svg viewBox="0 0 200 200" aria-hidden="true" style="filter:drop-shadow(0 0 10px #ff790088)">${IC[t]}</svg>`;
+const P=[
+ ['AKG Premium Wired Earphones, Braided Cable','AKG','ear',499,'5311690a-515a-427b-94c5-3aaf30dc98ce.png'],
+ ['Anker Nano 75W Car Charger, Retractable USB-C','Anker','car',7499,'85d44924-6ec2-43e1-b1d0-8c29e8e73311.png'],
+ ['ROMOSS PEA60 Max 60000mAh 100W Power Bank','Romoss','bank',14999,'b9d983a2-7047-4487-85a7-028cb0e8b4cf.png'],
+ ['Baseus 100W GaN Desktop Charging Station','Baseus','wall',15900,'1_hero_baseus_100w.jpg'],
+ ['ROMOSS 140W GaN 3-Port Fast Charger','Romoss','wall',9499,'ROMOSS140WGaNFastChargerShowcase.png'],
+ ['3 Pack USB-C to Lightning iPhone Cables','Apple','cable',1499,'9.png'],
+ ['Premium Braided USB-C to USB-C Fast Cable','Samsung','cable',1299,'6.png'],
+ ['Omniklad Rapid Auto 40W Dual USB-C Car Charger','Omniklad','car',3999,'1_hero_omniklad_40w_1.jpg'],
+ ['ROMOSS 20000mAh Power Bank, LED Display','Romoss','bank',8800,'1_hero_superfast.jpg'],
+ ['60W 4-in-1 Multi Cable Kit with Case','Xessorries','cable',1499,'49a9349e-9190-41fd-9193-802fea6c080e.png'],
+ ['30W Mini USB-C PD Fast Charger','Anker','wall',5500,'1772703064_1633_Buy-Anker_Zolo_30W_Mini_Charger-in_Pakis.jpg'],
+ ['KEAI 20W USB-C to Lightning Braided Cable','KEAI','cable',1199,'7.png']
+];
+const rs=n=>'Rs '+n.toLocaleString('en-PK');
+document.getElementById('track').innerHTML=P.map(([t,b,k,pr,img])=>`<a class="card" href="${STORE}/search?q=${encodeURIComponent(t)}"><div class="ph" data-k="${k}"><img loading="lazy" alt="${esc(t)}" src="${CDN}${esc(img)}?width=600"></div><div class="br">${esc(b)}</div><h3>${esc(t)}</h3><div class="pr">${rs(pr)}</div></a>`).join('');
+const S=[
+ ['Baseus','100W','Baseus 100W GaN Desktop Charging Station','3 AC sockets, 2 USB-A and 2 USB-C on one compact station.',15900,'1_hero_baseus_100w.jpg','wall'],
+ ['Romoss','60000','ROMOSS PEA60 Max Power Bank','60000mAh capacity with 100W fast output.',14999,'b9d983a2-7047-4487-85a7-028cb0e8b4cf.png','bank'],
+ ['Anker','75W','Anker Nano 75W Fast Car Charger','A retractable USB-C cable built right in.',7499,'85d44924-6ec2-43e1-b1d0-8c29e8e73311.png','car']
+];
+document.getElementById('slides').innerHTML=S.map(([b,n,t,d,pr,img,k],i)=>`<div class="sl${i?'':' on'}"><span class="num" aria-hidden="true">${n}</span><div class="ph" data-k="${k}"><img alt="${esc(t)}" src="${CDN}${esc(img)}?width=900"></div><div class="info"><div class="br">${esc(b)}</div><h3>${esc(t)}</h3><p>${esc(d)}</p><span class="pr">${rs(pr)}</span><a class="btn" href="${STORE}/search?q=${encodeURIComponent(t)}">Shop now →</a></div></div>`).join('');
+for(const ph of document.querySelectorAll('.ph')){const im=ph.querySelector('img');const fb=()=>{ph.classList.add('fb');im.remove();ph.insertAdjacentHTML('beforeend',icon(ph.dataset.k))};if(im.complete&&!im.naturalWidth)fb();else im.addEventListener('error',fb,{once:true})}
+
+const B=[['Apple','apple-accessories','Lightning cables, 20W adapters, MagSafe power'],['Samsung','samsung','USB-C cables, Quick Charge, AKG audio'],['Romoss','romoss','Power banks and GaN chargers'],['Toocki','toocki','Braided cables and wall adapters'],['Omniklad','omniklad','Rapid car chargers']];
+document.getElementById('brandlist').innerHTML=B.map(([n,h,d],i)=>`<a class="brow" style="--dir:${i%2?1:-1}" href="${STORE}/collections/${h}"><span class="bname">${n}</span><span class="go">${d}<i>→</i></span></a>`).join('');
+
+const C=[['Cables','cables','cable'],['Wall chargers','wall-chargers','wall'],['Car chargers','car-chargers','car'],['Power banks','power-banks','bank'],['Earphones','earphones','ear']];
+document.getElementById('carousel').innerHTML=C.map(([n,h,k],i)=>`<a class="cat" style="--i:${i}" href="${STORE}/collections/${h}">${icon(k)}<div><b>${n}</b><br><span>Shop now →</span></div></a>`).join('');
+
+const words=['Fast chargers','Braided cables','Power banks','Car chargers','Earphones','Apple','Samsung','Romoss','Toocki','Omniklad'];
+document.getElementById('tick').innerHTML=[...words,...words].map(w=>`<span>${w}</span><span>✦</span>`).join('');
+
+const h1=document.querySelector('.word');
+h1.innerHTML=[...'XESSORRIES'].map((c,i)=>`<span aria-hidden="true" style="--i:${i};--dy:${(i%3-1)*120}">${c}</span>`).join('');
+
+const root=document.documentElement;
+const mqLite=matchMedia('(max-width: 899px), (prefers-reduced-motion: reduce), (pointer: coarse)');
+const scenes=[...document.querySelectorAll('[data-scene]')];
+const drops=document.getElementById('drops'),track=document.getElementById('track');
+const slides=[...document.querySelectorAll('.sl')],dots=[...document.querySelectorAll('.dots i')];
+const rows=[...document.querySelectorAll('.brow')];
+let lite=mqLite.matches,lastY=scrollY,skew=0,ticking=false;
+
+function layout(){
+  lite=mqLite.matches;root.classList.toggle('lite',lite);
+  if(lite){drops.style.height='';return}
+  const shift=Math.max(0,track.scrollWidth-innerWidth);
+  drops.style.setProperty('--shift',shift);
+  drops.style.height=(innerHeight+shift)+'px';
+}
+function frame(){
+  ticking=false;
+  const y=scrollY,vh=innerHeight,max=document.documentElement.scrollHeight-vh;
+  root.style.setProperty('--page',max>0?(y/max).toFixed(4):0);
+  const v=y-lastY;lastY=y;skew+=(Math.max(-6,Math.min(6,v*.06))-skew)*.2;
+  document.querySelector('.ticker').style.setProperty('--skew',lite?0:skew.toFixed(2));
+  if(lite){if(Math.abs(skew)>.01)req();return}
+  for(const s of scenes){
+    const top=s.offsetTop,h=s.offsetHeight-vh;
+    const p=h>0?Math.min(1,Math.max(0,(y-top)/h)):0;
+    s.style.setProperty('--p',p.toFixed(4));
+    if(s.classList.contains('spot')){
+      const k=Math.min(2,Math.floor(p*3));slides.forEach((b,i)=>b.classList.toggle('on',i===k));dots.forEach((d,i)=>d.classList.toggle('on',i===k));
+    }
+  }
+  for(const r of rows){const t=r.getBoundingClientRect().top;const f=Math.min(1,Math.max(0,(vh-t)/(vh*.75)));r.style.setProperty('--f',f.toFixed(3))}
+  if(Math.abs(skew)>.01)req();
+}
+function req(){if(!ticking){ticking=true;requestAnimationFrame(frame)}}
+addEventListener('scroll',req,{passive:true});
+const ro=new ResizeObserver(()=>{layout();req()});ro.observe(document.body);
+mqLite.addEventListener('change',()=>{layout();req()});
+addEventListener('pointermove',e=>{if(lite)return;root.style.setProperty('--mx',(e.clientX/innerWidth-.5).toFixed(3));root.style.setProperty('--my',(e.clientY/innerHeight-.5).toFixed(3));
+  const c=e.target.closest&&e.target.closest('.card');if(c){const r=c.getBoundingClientRect();c.style.setProperty('--tilt',((e.clientX-r.left)/r.width-.5)*14)}},{passive:true});
+for(const c of document.querySelectorAll('.card'))c.addEventListener('pointerleave',()=>c.style.setProperty('--tilt',0));
+if(lite)slides.forEach(b=>b.classList.add('on'));
+mqLite.addEventListener('change',()=>slides.forEach((b,i)=>b.classList.toggle('on',mqLite.matches||i===0)));
+layout();frame();
+}
+</script>
+</body>
+</html>
