@@ -131,6 +131,21 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:18px 40px;justify-content:space-bet
 footer a{text-decoration:none}footer a:hover{color:var(--or)}
 .demo{font-size:13px}
 
+
+/* contact */
+.contact{border-top:1px solid var(--line)}
+.contact .wrap{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:40px;align-items:end}
+.contact .phone{display:block;font:700 clamp(40px,7vw,96px)/1 "Space Grotesk",sans-serif;letter-spacing:-.03em;text-decoration:none;margin:18px 0 0;white-space:nowrap;transition:color .25s var(--ease)}
+.contact .phone:hover{color:var(--or)}
+.contact p{color:var(--dim);margin:14px 0 0;max-width:40ch}
+.contact .acts{display:flex;flex-wrap:wrap;gap:14px;justify-content:flex-end}
+.contact .btn svg{width:20px;height:20px;flex:none}
+.btn.ig{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.btn.ig:hover{border-color:var(--or);color:var(--or);box-shadow:none}
+footer .ig-link{display:inline-flex;align-items:center;gap:8px}
+footer .ig-link svg{width:18px;height:18px}
+@media(max-width:760px){.contact .wrap{grid-template-columns:1fr;gap:26px}.contact .acts{justify-content:flex-start}}
+
 /* phones, tablets, reduced motion: no pinning, plain flow */
 .lite .hero,.lite .spot,.lite .ring,.lite .fin{height:auto}
 .lite .stick{position:relative;height:auto;min-height:0;overflow:visible}
@@ -186,7 +201,7 @@ footer a{text-decoration:none}footer a:hover{color:var(--or)}
 <div class="bar" aria-hidden="true"></div>
 <nav>
   <a class="logo" href="#top"><b>X</b>ESSORIES</a>
-  <div class="links"><a href="#drops">Drops</a><a href="#brands">Brands</a><a href="#cats">Categories</a><a href="https://xcessorries.myshopify.com/collections/all">Shop all</a></div>
+  <div class="links"><a href="#drops">Drops</a><a href="#brands">Brands</a><a href="#cats">Categories</a><a href="#contact">Contact</a><a href="https://xcessorries.myshopify.com/collections/all">Shop all</a></div>
 </nav>
 
 <main id="top">
@@ -262,12 +277,27 @@ footer a{text-decoration:none}footer a:hover{color:var(--or)}
     </div>
   </div>
 </section>
+
+<section class="band contact" id="contact">
+  <div class="wrap">
+    <div>
+      <h2>Contact us</h2>
+      <a class="phone" href="tel:+923396168628">0339 6168628</a>
+      <p>Questions about a product, your order or delivery? Call us or send a message on Instagram.</p>
+    </div>
+    <div class="acts">
+      <a class="btn" href="tel:+923396168628"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Call now</a>
+      <a class="btn ig" href="https://www.instagram.com/xessoriess.pk/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>Instagram</a>
+    </div>
+  </div>
+</section>
 </main>
 
 <footer>
   <div class="wrap">
     <div><a class="logo" href="#top"><b>X</b>ESSORIES</a><p>Premium mobile accessories, Pakistan.</p></div>
     <div>Shop<br><a href="https://xcessorries.myshopify.com/collections/all">All products</a><br><a href="https://xcessorries.myshopify.com/collections/wall-chargers">Wall chargers</a><br><a href="https://xcessorries.myshopify.com/collections/power-banks">Power banks</a></div>
+    <div>Contact<br><a href="tel:+923396168628">0339 6168628</a><br><a class="ig-link" href="https://www.instagram.com/xessoriess.pk/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>@xessoriess.pk</a></div>
     <div>Help<br><a href="https://xcessorries.myshopify.com/policies/refund-policy">Refund policy</a><br><a href="https://xcessorries.myshopify.com/policies/privacy-policy">Privacy policy</a></div>
     <p class="demo">© 2026 Xessories</p>
   </div>
@@ -333,7 +363,7 @@ const rows=[...document.querySelectorAll('.brow')];
 let lite=mqLite.matches,calm=mqCalm.matches,lastY=scrollY,skew=0,ticking=false;
 const rvIO=new IntersectionObserver(es=>{for(const e of es)if(e.isIntersecting){e.target.classList.add('in');rvIO.unobserve(e.target)}},{rootMargin:'0px 0px -8% 0px',threshold:.12});
 function mobileReveal(){
-  const groups=[['.drops h2,.brands h2,.ring h2,.spot .lbl',0],['.sl',0],['.card',90],['.cat',80],['.fin .big,.fin .act',150]];
+  const groups=[['.drops h2,.brands h2,.ring h2,.spot .lbl',0],['.sl',0],['.card',90],['.cat',80],['.fin .big,.fin .act',150],['.contact h2,.contact .phone,.contact p,.contact .acts',90]];
   for(const [sel,step] of groups){[...document.querySelectorAll(sel)].forEach((el,i)=>{
     if(!lite||calm){el.classList.add('in');return}
     if(el.classList.contains('in'))return;
