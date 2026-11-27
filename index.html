@@ -197,6 +197,26 @@ footer .ig-link svg{width:18px;height:18px}
 .calm .brow{transform:none}.calm .bname{background-position:0 0}
 @media(max-width:600px){nav .links{display:none}.brow{grid-template-columns:minmax(0,1fr) auto}.brow .go{font-size:0;gap:0}.brow .go i{font-size:20px;width:46px;height:46px}.bname{font-size:clamp(40px,12vw,64px)}}
 
+
+.burger{display:none;margin-left:auto;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:#0d0d0d;color:#fff;cursor:pointer;place-items:center}
+.burger span,.burger span:before,.burger span:after{display:block;width:18px;height:2px;background:currentColor;position:relative;content:"";transition:transform .3s var(--ease)}
+.burger span:before{position:absolute;top:-6px}.burger span:after{position:absolute;top:6px}
+.drawer{position:fixed;inset:0;z-index:70;background:#0a0a0a;transform:translateX(100%);transition:transform .45s var(--ease);overflow-y:auto;padding:22px max(5vw,16px) 40px;border-left:2px solid var(--or)}
+.drawer.open{transform:none}
+.drawer .dtop{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.drawer .x{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:none;color:#fff;font-size:26px;cursor:pointer}
+.drawer .dl{display:flex;justify-content:space-between;align-items:center;width:100%;padding:18px 0;border:0;border-bottom:1px solid var(--line);background:none;color:#fff;text-decoration:none;font:700 clamp(30px,8vw,44px)/1 "Space Grotesk",sans-serif;text-transform:uppercase;text-align:left;cursor:pointer}
+.drawer .dl i{font-style:normal;color:var(--or);font-size:28px}
+.dbrands{display:none;grid-template-columns:1fr 1fr;gap:14px 12px;padding:18px 0 8px}
+.dbrands.open{display:grid}
+.dbrands a{text-decoration:none;color:#fff}
+.dbrands .bi{aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#141414;border:1px solid var(--line)}
+.dbrands img{width:100%;height:100%;object-fit:cover;display:block}
+.dbrands .bi.t{display:grid;place-content:center;text-align:center;font:700 22px/1 "Space Grotesk",sans-serif;background:radial-gradient(circle at 30% 60%,#ff790040,transparent 60%),#0d0d0d}
+.dbrands .bi.t em{display:block;color:var(--or);font-size:14px;margin-top:4px}
+.dbrands b{display:block;font:700 18px "Space Grotesk",sans-serif;text-transform:uppercase;margin-top:8px}
+@media(max-width:600px){.burger{display:grid}}
+body.lock{overflow:hidden}
 </style>
 </head>
 <body>
@@ -204,7 +224,17 @@ footer .ig-link svg{width:18px;height:18px}
 <nav>
   <a class="logo" href="#top"><b>X</b>ESSORIES</a>
   <div class="links"><a href="#drops">Drops</a><a href="#brands">Brands</a><a href="#cats">Categories</a><a href="#contact">Contact</a><a href="https://xcessorries.myshopify.com/collections/all">Shop all</a></div>
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span></button>
 </nav>
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="dtop"><a class="logo" href="#top"><b>X</b>ESSORIES</a><button class="x" id="dclose" aria-label="Close menu">&times;</button></div>
+  <a class="dl" href="#drops">Drops</a>
+  <button class="dl" id="dbtn" aria-expanded="false" aria-controls="dbrands">Brands <i>+</i></button>
+  <div class="dbrands" id="dbrands"></div>
+  <a class="dl" href="#cats">Categories</a>
+  <a class="dl" href="#contact">Contact</a>
+  <a class="dl" href="https://xcessorries.myshopify.com/collections/all">Shop all</a>
+</div>
 
 <main id="top">
 <section class="scene hero" data-scene>
@@ -363,10 +393,10 @@ document.getElementById('slides').innerHTML=S.map(([b,n,t,d,pr,img,k],i)=>`<div 
 for(const ph of document.querySelectorAll('.ph')){const im=ph.querySelector('img');const fb=()=>{ph.classList.add('fb');im.remove();ph.insertAdjacentHTML('beforeend',icon(ph.dataset.k))};if(im.complete&&!im.naturalWidth)fb();else im.addEventListener('error',fb,{once:true})}
 
 const B=[['Apple','apple-accessories','Lightning cables, 20W adapters, MagSafe power'],['WiWU','wiwu','ANC headphones, earbuds, magnetic power banks'],['Baseus','baseus','GaN chargers and power banks'],['Momax','momax','Magnetic wireless power banks'],['Philips','philips','Power banks with built-in cables'],['Lenovo','lenovo','True wireless earbuds'],['Yinpage','yinpage','ANC earbuds'],['Samsung','samsung','USB-C cables, Quick Charge, AKG audio'],['Romoss','romoss','Power banks and GaN chargers'],['Toocki','toocki','Braided cables and wall adapters'],['Omniklad','omniklad','Rapid car chargers']];
-document.getElementById('brandlist').innerHTML=B.map(([n,h,d],i)=>`<a class="brow" style="--dir:${i%2?1:-1}" href="${STORE}/collections/${h}"><span class="bname">${n}</span><span class="go">${d}<i>→</i></span></a>`).join('');
+document.getElementById('brandlist').innerHTML=B.map(([n,h,d],i)=>`<a class="brow" style="--dir:${i%2?1:-1}" href="https://xcessorries.myshopify.com/collections/${h}"><span class="bname">${n}</span><span class="go">${d}<i>→</i></span></a>`).join('');
 
 const C=[['Cables','cables','cable'],['Wall chargers','wall-chargers','wall'],['Car chargers','car-chargers','car'],['Power banks','power-banks','bank'],['Earphones','earphones','buds'],['Headphones','headphones','ear'],['Wireless chargers','wireless-chargers','pad']];
-document.getElementById('carousel').innerHTML=C.map(([n,h,k],i)=>`<a class="cat" style="--i:${i}" href="${STORE}/collections/${h}">${icon(k)}<div><b>${n}</b><br><span>Shop now →</span></div></a>`).join('');
+document.getElementById('carousel').innerHTML=C.map(([n,h,k],i)=>`<a class="cat" style="--i:${i}" href="https://xcessorries.myshopify.com/collections/${h}">${icon(k)}<div><b>${n}</b><br><span>Shop now →</span></div></a>`).join('');
 
 const words=['Fast chargers','Power banks','ANC headphones','Wireless earbuds','Wireless chargers','Apple','WiWU','Baseus','Romoss','Toocki','Momax','Philips'];
 document.getElementById('tick').innerHTML=[...words,...words].map(w=>`<span>${w}</span><span>✦</span>`).join('');
@@ -429,6 +459,15 @@ if(lite)slides.forEach(b=>b.classList.add('on'));
 mqLite.addEventListener('change',()=>slides.forEach((b,i)=>b.classList.toggle('on',mqLite.matches||i===0)));
 layout();mobileReveal();frame();
 }
+
+(()=>{const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const C='https://cdn.shopify.com/s/files/1/0838/7077/7582/collections/';const D=[['Apple','apple-accessories','6e77fbce-bb85-4e30-ad79-b60635fa535b.jpg'],['Samsung','samsung','samsung.jpg'],['WiWU','wiwu',''],['Baseus','baseus','1000243403.jpg'],['Romoss','romoss','romoss.jpg'],['Toocki','toocki','tooki.jpg'],['Momax','momax','1000243404.jpg'],['Philips','philips','1000243408.jpg'],['Lenovo','lenovo','1000243406.jpg'],['Yinpage','yinpage','1000243407.jpg'],['Omniklad','omniklad','WhatsApp_Image_2026-11-24_at_12.46.04_PM.jpg']];
+const g=document.getElementById('dbrands');g.innerHTML=D.map(([n,h,f])=>`<a href="https://xcessorries.myshopify.com/collections/${h}">${f?`<div class="bi"><img loading="lazy" src="${C+f}?width=600" alt="${esc(n)} accessories"></div>`:`<div class="bi t">${esc(n)}<em>Accessories</em></div>`}<b>${esc(n)}</b></a>`).join('');
+const dr=document.getElementById('drawer'),bu=document.getElementById('burger'),db=document.getElementById('dbtn');
+const set=o=>{dr.classList.toggle('open',o);document.body.classList.toggle('lock',o);bu.setAttribute('aria-expanded',o)};
+bu.onclick=()=>set(true);document.getElementById('dclose').onclick=()=>set(false);
+dr.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>set(false)));
+addEventListener('keydown',e=>e.key==='Escape'&&set(false));
+db.onclick=()=>{const o=!g.classList.contains('open');g.classList.toggle('open',o);db.setAttribute('aria-expanded',o);db.querySelector('i').textContent=o?'−':'+'};})();
 </script>
 </body>
 </html>
